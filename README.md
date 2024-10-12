@@ -1,11 +1,11 @@
 # portfolio
 
 ![Build Status](https://img.shields.io/github/actions/workflow/status/FlaccidFacade/portfolio/ci.yml?branch=main)
-![Coverage](https://img.shields.io/badge/coverage-80%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-80%20-brightgreen)
 ![License](https://img.shields.io/github/license/FlaccidFacade/portfolio)
-![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio)
+![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio/app)
 
-This is Zachary Turner's portfolio source code. Currently, it is a static page. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to enable fellow developers to showcase their skills by contributing to and enhancing this project.
+This is Zachary Turner's portfolio source code. Currently, it is a static page. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to practice, explore some new frameworks, familiarize myself with alternative solutions, and enable others.
 
 ## project plan
 
@@ -18,7 +18,7 @@ This is Zachary Turner's portfolio source code. Currently, it is a static page. 
 - [ ] beta.zed : enable readme badge automation.
 - [ ] beta.alpha : add hosting  free tier fail safes.
 - [ ] beta.beta : production hosting.
-- [ ] release : v1.0.0 Post to Socials
+- [ ] release : v0.0.0 launch
 - [ ] vTBD : enable i18 translations
 - [ ] vTBD : practice french - 100% translation in fr
 - [ ] vTBD : practice tailwind css - pop up and auto fadeout alerts
