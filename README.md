@@ -1,2 +1,48 @@
 # portfolio
-Static 
+
+![Build Status](https://img.shields.io/github/actions/workflow/status/FlaccidFacade/portfolio/ci.yml?branch=main)
+![Coverage](https://img.shields.io/badge/coverage-80%25-brightgreen)
+![License](https://img.shields.io/github/license/FlaccidFacade/portfolio)
+![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio)
+
+This is Zachary Turner's portfolio source code. Currently, it is a static page. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to enable fellow developers to showcase their skills by contributing to and enhancing this project.
+
+## project plan
+
+- [x] zed : create a simple static app with links to similar profile pages and text.
+- [x] alpha.zed : test running.
+- [ ] alpha.alpha : test automation with gh actions.
+- [ ] alpha.beta : ensure documentation for replication.
+- [ ] alpha.charlie : ensure 100 % coverage
+- [ ] alpha.delta : enhance page layout
+- [ ] beta.zed : enable readme badge automation.
+- [ ] beta.alpha : add hosting  free tier fail safes.
+- [ ] beta.beta : production hosting.
+- [ ] release : v1.0.0 Post to Socials
+- [ ] vTBD : enable i18 translations
+- [ ] vTBD : practice french - 100% translation in fr
+- [ ] vTBD : practice tailwind css - pop up and auto fadeout alerts
+- [ ] vTBD : practice 3rd party integration - instagram feed view. (put load on client end to save server cost)
+- [ ] vTBD : practice 3rd party integration - spotify view
+- [ ] vTBD : streak tracking (github, duolingo,...) to exemplify continuous learning
+
+## prerequisites
+
+unix based OS (or WSL), docker, and git
+
+> ℹ️ **Note:**  Ensure that all OS, Docker, and Git-SCM packages used are stable and free from known vulnerabilities.
+
+> ℹ️ **Note:**  The build runtime versions should be managed and specified within the Docker configuration files to maintain consistency and security.
+
+## build steps
+
+```bash
+docker-compose up
+```
+
+## Design Decisions
+
+### Selenium in a separate directory from next.js
+
+We place our selenium tests separately to ensure loose coupling between our system tests and app source code. For example we can adjust our runtime in selenium to python, and since this adjustment is in a separate container we can ensure no adverse affects on our app.
+

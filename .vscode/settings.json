@@ -1,0 +1,21 @@
+{
+        /**
+        * Use the Prettier code formatter. Get the extension at https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+        * or use our .vsocde/extensions.json to install it automatically
+        * you can find instructions online on how to use the extension here: https://prettier.io/docs/en/editors.html#visual-studio-code
+        */
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 1000,
+        "prettier.enable": true,
+        /** prettierPath is relative to the workspace folder
+        * nextjs build ensures the install for dev usage. this will happen durinng docker compose up
+        * so we also have our .prettierrc (config file) in the root of the next directory
+        */
+        "prettier.prettierPath": "./app/node_modules/prettier",
+        
+        "jest.rootPath": "/app",
+        "jest.jestCommandLine": "npm run test:watch"
+        
+    }

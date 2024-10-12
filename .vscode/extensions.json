@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "bierner.markdown-preview-github-styles",
+        "streetsidesoftware.code-spell-checker",
+        "mattpocock.ts-error-translator",
+        "pmneo.tsimporter",
+        "visualstudioexptteam.vscodeintellicode",
+        "orta.vscode-jest"
+    ]
+}
