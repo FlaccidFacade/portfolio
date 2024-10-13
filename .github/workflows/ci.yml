@@ -4,6 +4,15 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'PULL_REQUEST_TEMPLATE.md'
+      - 'ISSUE_TEMPLATE.md'
 
 jobs:
   build-and-test:
