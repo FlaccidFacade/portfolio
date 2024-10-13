@@ -15,7 +15,7 @@
         */
         "prettier.prettierPath": "./app/node_modules/prettier",
         
-        "jest.rootPath": "/app",
+        "jest.rootPath": "./app",
         "jest.jestCommandLine": "npm run test:watch"
         
     }
