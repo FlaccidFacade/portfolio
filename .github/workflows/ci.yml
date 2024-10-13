@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latests
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout code
