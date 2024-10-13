@@ -1,8 +1,6 @@
 # portfolio
 
 ![Build Status](https://img.shields.io/github/actions/workflow/status/FlaccidFacade/portfolio/ci.yml?branch=main)
-![Coverage](https://codecov.io/gh/FlaccidFacade/portfolio/branch/main/graph/badge.svg)
-
 ![Coverage](https://img.shields.io/badge/coverage-80%20-brightgreen)
 ![License](https://img.shields.io/github/license/FlaccidFacade/portfolio)
 ![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio/app)
@@ -13,9 +11,9 @@ This is Zachary Turner's portfolio source code. Currently, it is a static page. 
 
 - [x] zed : create a simple static app with links to similar profile pages and text.
 - [x] alpha.zed : test running.
-- [ ] alpha.alpha : test automation with gh actions.
-- [ ] alpha.beta : ensure documentation for replication.
-- [ ] alpha.charlie : ensure 100 % coverage
+- [x] alpha.alpha : test automation with gh actions.
+- [x] alpha.beta : ensure documentation for replication.
+- [x] alpha.charlie : ensure coverage
 - [ ] alpha.delta : enhance page layout
 - [ ] beta.zed : enable readme badge automation.
 - [ ] beta.alpha : add hosting  free tier fail safes.
