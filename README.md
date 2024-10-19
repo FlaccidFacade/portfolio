@@ -15,7 +15,7 @@ This is Zachary Turner's portfolio source code. Currently, it is a static page. 
 - [x] alpha.beta : ensure documentation for replication.
 - [x] alpha.charlie : ensure coverage
 - [ ] alpha.delta : enhance page layout
-- [ ] beta.zed : enable readme badge automation.
+- [x] beta.zed : enable readme badge automation. (sheilds.io and github actions)
 - [ ] beta.alpha : add hosting  free tier fail safes.
 - [ ] beta.beta : production hosting.
 - [ ] release : v0.0.0 launch
@@ -25,7 +25,7 @@ This is Zachary Turner's portfolio source code. Currently, it is a static page. 
 - [ ] vTBD : practice 3rd party integration - instagram feed view. (put load on client end to save server cost)
 - [ ] vTBD : practice 3rd party integration - spotify view
 - [ ] vTBD : streak tracking (github, duolingo,...) to exemplify continuous learning
-
+- [ ] vTBD : NEON TEXT FOLLOW MOUSE
 ## prerequisites
 
 unix based OS (or WSL), docker, and git
