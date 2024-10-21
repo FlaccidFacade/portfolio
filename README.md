@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/github/license/FlaccidFacade/portfolio)
 ![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio/app)
 
-This is Zachary Turner's portfolio source code. Currently, it is a static page. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to practice, explore some new frameworks, familiarize myself with alternative solutions, and enable others.
+This is Zachary Turner's portfolio source code used to explore Next.js. Currently, it is a static page. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to practice, explore some new frameworks, familiarize myself with alternative solutions, and enable others.
 
 ## project plan
 
