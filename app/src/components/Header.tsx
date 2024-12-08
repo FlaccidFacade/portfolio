@@ -20,7 +20,7 @@ const Header: React.FC = () => {
           <div className="w-full text-gray-200 hover:text-black border border-gray-400 lg:border-0">
             <ExternalLink
               id="external-link-linkedin"
-              link="https://www.linkedin.com/in/zachary-turner-1b4237181/"
+              link="https://www.linkedin.com/in/zachary-glenn-turner/"
             >
               LinkedIn
             </ExternalLink>
