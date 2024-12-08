@@ -6,6 +6,7 @@
         */
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
+        "editor.wordWrap": "on",
         "files.autoSave": "afterDelay",
         "files.autoSaveDelay": 1000,
         "prettier.enable": true,
@@ -16,6 +17,9 @@
         "prettier.prettierPath": "./app/node_modules/prettier",
         
         "jest.rootPath": "./app",
-        "jest.jestCommandLine": "npm run test:watch"
+        "jest.jestCommandLine": "npm run test:watch",
+    
+        "typescript.tsdk": "${workspaceFolder}/app/node_modules/typescript/lib",
+        "eslint.nodePath": "${workspaceFolder}/app/node_modules"
         
     }
