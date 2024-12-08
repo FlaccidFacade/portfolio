@@ -9,9 +9,25 @@
         "kind": "test",
         "isDefault": true
       },
-      "problemMatcher": "$jest",
+      "problemMatcher": [],
       "options": {
         "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "Install Dependencies in App",
+      "type": "shell",
+      "command": "npm install",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
       }
     }
   ]
