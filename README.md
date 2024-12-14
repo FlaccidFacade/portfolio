@@ -14,7 +14,8 @@ This is Zachary Turner's portfolio source code used to explore Next.js by [Verce
 - [x] alpha.alpha : test automation with gh actions.
 - [x] alpha.beta : ensure documentation for replication.
 - [x] alpha.charlie : ensure coverage
-- [ ] alpha.delta : enhance page layout
+- [x] alpha.delta : enhance page layout
+- [/] alpha.echo : add content to page
 - [ ] beta.zed : enable readme badge automation.
 - [ ] beta.alpha : add hosting free tier fail safes.
 - [ ] beta.beta : production hosting.
