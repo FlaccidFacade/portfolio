@@ -1,40 +1,88 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ExternalLink from './ExternalLink';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(true); // Menu is open by default
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <header className="w-full flex flex-col justify-center items-center bg-red-800 relative">
-      <div className="text-3xl text-grey-200 m-2 lg:mb-8">FlaccidFacade</div>
-      <nav className="w-full flex flex-col items-center">
+    <header className="w-full flex flex-col justify-center items-center bg-white border-gray-200 py-2.5 dark:bg-gray-900 relative text-lg-5">
+      {/* <div className="text-3xl text-grey-200 m-2 lg:mb-8"> */}
+
+      {/* </div> */}
+      <nav className="w-full justify-center flex  flex-row     `">
         <div
-          className={`flex flex-col items-center space-y-4  ${
-            isOpen ? 'block' : 'hidden'
-          } lg:flex lg:flex-row lg:space-y-0 lg:space-x-4`}
+          data-tooltip-target="tooltip-default"
+          className="pl-3 flex text-purple-500 font-bold shadow relative whitespace-nowrap"
+          onMouseEnter={() => {
+            const tooltip = document.getElementById('tooltip-default');
+            if (tooltip) {
+              tooltip.classList.remove('invisible', 'opacity-0');
+            }
+          }}
+          onMouseLeave={() => {
+            const tooltip = document.getElementById('tooltip-default');
+            if (tooltip) {
+              tooltip.classList.add('invisible', 'opacity-0');
+            }
+          }}
         >
-          <div className="w-full text-gray-200 hover:text-black border border-gray-400 lg:border-0">
+          <span>Zachary Turner</span>
+          <div
+            id="tooltip-default"
+            role="tooltip"
+            className="absolute z-10 inline-block invisible px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700 mt-5"
+          >
+            <a
+              href="https://github.com/FlaccidFacade"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/FlaccidFacade
+            </a>
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        <div
+          className={`w-full justify-center flex  flex-row  space-y-0 space-x-4`}
+        >
+          <div className="text-gray-200 hover:text-blue-400">
             <ExternalLink
               id="external-link-linkedin"
               link="https://www.linkedin.com/in/zachary-glenn-turner/"
             >
-              LinkedIn
+              <div className="flex items-center hover:text-blue-400">
+                <Image
+                  data-testid="imageLinkedInLogo"
+                  src="/linkedIn.png"
+                  alt=""
+                  width={10}
+                  height={10}
+                  priority
+                />
+                <div className="pl-1">LinkedIn</div>
+              </div>
             </ExternalLink>
           </div>
-          <div className="text-gray-200 hover:text-red-500 border-b border-gray-400 lg:border-0">
+          <div className="text-gray-200 hover:text-purple-500">
             <ExternalLink
               id="external-link-github"
               link="https://github.com/FlaccidFacade"
             >
-              GitHub
+              <div className="flex items-center hover:text-purple-500">
+                <Image
+                  data-testid="imageGithubLogo"
+                  className="dark:invert"
+                  src="/github-symbol.png"
+                  alt=""
+                  width={20}
+                  height={20}
+                  priority
+                />
+                <div className="">GitHub</div>
+              </div>
             </ExternalLink>
           </div>
 
-          <div className="text-gray-200 hover:text-red-200 border-b border-gray-400 lg:border-0">
+          <div className="text-gray-200 hover:text-yellow-600">
             <ExternalLink
               id="external-link-github-portfolio"
               link="https://github.com/FlaccidFacade/portfolio"
@@ -43,12 +91,6 @@ const Header: React.FC = () => {
             </ExternalLink>
           </div>
         </div>
-        <button
-          onClick={toggleMenu}
-          className="absolute top-4 right-4 lg:hidden text-grey-200"
-        >
-          {isOpen ? 'Close Menu' : 'Open Menu'}
-        </button>
       </nav>
     </header>
   );

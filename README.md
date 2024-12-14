@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/github/license/FlaccidFacade/portfolio)
 ![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio/app)
 
-This is Zachary Turner's portfolio source code used to explore Next.js. Currently, it is a static page. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to practice, explore some new frameworks, familiarize myself with alternative solutions, and enable others.
+This is Zachary Turner's portfolio source code used to explore Next.js by [Vercel](./vercel.info). Currently, this project is a static page to host some basic layout with site links. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to practice, explore some new frameworks, familiarize myself with alternative solutions, and enable others.
 
 ## project plan
 
@@ -16,7 +16,7 @@ This is Zachary Turner's portfolio source code used to explore Next.js. Currentl
 - [x] alpha.charlie : ensure coverage
 - [ ] alpha.delta : enhance page layout
 - [ ] beta.zed : enable readme badge automation.
-- [ ] beta.alpha : add hosting  free tier fail safes.
+- [ ] beta.alpha : add hosting free tier fail safes.
 - [ ] beta.beta : production hosting.
 - [ ] release : v0.0.0 launch
 - [ ] vTBD : enable i18 translations
@@ -30,9 +30,9 @@ This is Zachary Turner's portfolio source code used to explore Next.js. Currentl
 
 unix based OS (or WSL), docker, and git
 
-> ℹ️ **Note:**  Ensure that all OS, Docker, and Git-SCM packages used are stable and free from known vulnerabilities.
+> ℹ️ **Note:** Ensure that all OS, Docker, and Git-SCM packages used are stable and free from known vulnerabilities.
 
-> ℹ️ **Note:**  The build runtime versions should be managed and specified within the Docker configuration files to maintain consistency and security.
+> ℹ️ **Note:** The build runtime versions should be managed and specified within the Docker configuration files to maintain consistency and security.
 
 ## build steps
 
@@ -44,5 +44,4 @@ docker-compose up
 
 ### Selenium in a separate directory from next.js
 
-We place our selenium tests separately to ensure loose coupling between our system tests and app source code. For example we can adjust our runtime in selenium to python, and since this adjustment is in a separate container we can ensure no adverse affects on our app.
-
+We place our selenium tests separately to ensure loose coupling between our system tests and app source code. For example we can adjust our runtime in selenium to python, and since this adjustment is in a separate container we can ensure no adverse affects on our app. This also makes it easier to avoid unnecessary code deployments.
