@@ -1,14 +1,12 @@
 import React from 'react';
 import ExternalLink from './ExternalLink';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Header: React.FC = () => {
   return (
-    <header className="w-full flex flex-col justify-center items-center bg-white border-gray-200 py-2.5 dark:bg-gray-900 relative text-lg-5">
-      {/* <div className="text-3xl text-grey-200 m-2 lg:mb-8"> */}
-
-      {/* </div> */}
-      <nav className="w-full justify-center flex  flex-row     `">
+    <header className="w-full flex flex-col justify-center items-center bg-white border-gray-200 py-2.5 dark:bg-gray-900 relative text-3xl">
+      <nav className="w-full flex flex-col sm:flex-row justify-center items-center">
         <div
           data-tooltip-target="tooltip-default"
           className="pl-3 flex text-purple-500 font-bold shadow relative whitespace-nowrap"
@@ -25,7 +23,9 @@ const Header: React.FC = () => {
             }
           }}
         >
-          <span>Zachary Turner</span>
+          <span>
+            <Link href="/aboutMe">Zachary Turner</Link>
+          </span>
           <div
             id="tooltip-default"
             role="tooltip"
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
           </div>
         </div>
         <div
-          className={`w-full justify-center flex  flex-row  space-y-0 space-x-4`}
+          className={`w-full justify-center flex flex-row space-y-0 space-x-4`}
         >
           <div className="text-gray-200 hover:text-blue-400">
             <ExternalLink
@@ -89,6 +89,12 @@ const Header: React.FC = () => {
             >
               Source
             </ExternalLink>
+          </div>
+          <div className="text-gray-200 hover:text-red-500">
+            <Link href="/album">Album</Link>
+          </div>
+          <div className="text-gray-200 hover:text-green-500">
+            <Link href="/aboutMe">About Me</Link>
           </div>
         </div>
       </nav>

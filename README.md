@@ -15,7 +15,7 @@ This is Zachary Turner's portfolio source code used to explore Next.js by [Verce
 - [x] alpha.beta : ensure documentation for replication.
 - [x] alpha.charlie : ensure coverage
 - [x] alpha.delta : enhance page layout
-- [/] alpha.echo : add content to page
+- [/] alpha.echo : add content to page.
 - [ ] beta.zed : enable readme badge automation.
 - [ ] beta.alpha : add hosting free tier fail safes.
 - [ ] beta.beta : production hosting.
@@ -25,7 +25,7 @@ This is Zachary Turner's portfolio source code used to explore Next.js by [Verce
 - [ ] vTBD : practice tailwind css - pop up and auto fadeout alerts
 - [ ] vTBD : practice 3rd party integration - instagram feed view. (put load on client end to save server cost)
 - [ ] vTBD : practice 3rd party integration - spotify view
-- [ ] vTBD : streak tracking (github, duolingo,...) to exemplify continuous learning
+- [ ] vTBD : streak tracking (github, duolingo,...) to exemplify continuous learning and data pipelines
 
 ## prerequisites
 

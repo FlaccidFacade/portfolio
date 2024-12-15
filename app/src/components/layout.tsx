@@ -4,9 +4,7 @@ import React from 'react';
 import Head from 'next/head';
 
 import localFont from 'next/font/local';
-import Footer from './Footer';
 import Header from './Header';
-import Box from './Box';
 
 export const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
@@ -45,8 +43,6 @@ export default function RootLayout({
           {/* This is where the page-specific content will go */}
           {children}
         </main>
-        <Box />
-        <Footer />
       </div>
     </>
   );
