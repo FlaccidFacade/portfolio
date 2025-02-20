@@ -1,4 +1,3 @@
-import CardCopyText from '@/components/CardCopyText';
 import React from 'react';
 
 const album = () => {
