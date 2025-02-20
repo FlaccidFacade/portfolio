@@ -129,5 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# holds sensitive information
+.ssh/
+ssh-key.txt
 
-ssh-key
+# i don't like using package-lock.json in ci becuase it makes merge conflicts more annoying. if the latest pull of a package fails then you have worse things to worry about than tracking a package-lock.json file
+package-lock.json
