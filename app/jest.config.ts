@@ -40,8 +40,9 @@ const config: Config = {
     '!src/**/*.d.ts',
     '!src/**/index.ts',
     '!src/fonts/**',
-    // '!src/pages/_app.tsx',
-    // '!src/pages/_document.tsx',
+    '!src/__tests__/helpers/**',
+    '!src/pages/_app.tsx', // Uncommented to exclude _app.tsx
+    '!src/pages/_document.tsx', // Uncommented to exclude _document.tsx
   ],
   /**
    * coverageDirectory is the directory where the coverage information will be stored.
@@ -49,6 +50,7 @@ const config: Config = {
    * so the coverage information will be stored in portfolio/app/coverage and not version controlled
    */
   coverageDirectory: 'coverage',
+  testPathIgnorePatterns: ['<rootDir>/src/__tests__/helpers/'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

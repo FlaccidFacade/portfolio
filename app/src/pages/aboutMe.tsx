@@ -1,7 +1,7 @@
 import CardCopyText from '@/components/CardCopyText';
 import Confetti from '@/components/Confetti';
 
-export default function Box({}) {
+export default function AboutMe() {
   return (
     <div>
       <div className="container relative flex flex-col justify-between h-full max-w-6xl px-10 mx-auto xl:px-0 mt-5">
@@ -24,7 +24,8 @@ export default function Box({}) {
                       Here I've had the opportunity to work across multiple
                       platforms like SUSE, AIX, and Windows. I enjoy creating
                       front-end, middleware, and back-end solutions for in house
-                      use cases across multiple business units like Journeys and Johnston&Murphy.
+                      use cases across multiple business units like Journeys and
+                      Johnston&Murphy.
                     </p>
                   </div>
                 </div>

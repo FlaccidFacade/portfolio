@@ -18,7 +18,7 @@ describe('ReadNextjsDocs Component', () => {
   it('renders the label with the correct id and text', () => {
     const labelElement = screen.getByTestId('labelReadNextjsDocs');
     expect(labelElement).toBeInTheDocument();
-    expect(labelElement).toHaveTextContent('Created with:');
+    expect(labelElement).toHaveTextContent('Created with the React Framework:');
   });
 
   it('renders the Image component with the correct attributes', () => {
@@ -26,7 +26,7 @@ describe('ReadNextjsDocs Component', () => {
     expect(imageElement).toBeInTheDocument();
     expect(imageElement).toHaveAttribute('src', '/next.svg');
     expect(imageElement).toHaveAttribute('alt', 'Next.js');
-    expect(imageElement).toHaveAttribute('width', '180');
-    expect(imageElement).toHaveAttribute('height', '38');
+    expect(imageElement).toHaveAttribute('width', '90');
+    expect(imageElement).toHaveAttribute('height', '10');
   });
 });
