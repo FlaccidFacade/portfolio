@@ -11,3 +11,41 @@ updates:
     commit-message:
       prefix: "deps"
     target-branch: "main"
+    groups:
+      react-packages:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      next-packages:
+        patterns:
+          - "next"
+          - "eslint-config-next"
+          - "next-router-mock"
+      testing-packages:
+        patterns:
+          - "@testing-library/*"
+          - "@types/jest"
+          - "jest"
+          - "jest-environment-jsdom"
+          - "ts-jest"
+      typescript-packages:
+        patterns:
+          - "typescript"
+          - "@types/node"
+          - "ts-node"
+      ui-libraries:
+        patterns:
+          - "@geist-ui/react"
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
+      utilities:
+        patterns:
+          - "canvas-confetti"
+          - "@types/canvas-confetti"
+      formatting-tools:
+        patterns:
+          - "eslint"
+          - "prettier"
