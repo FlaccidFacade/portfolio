@@ -1,4 +1,8 @@
 name: Update README Coverage Badge
+
+permissions:
+  contents: write  # Grants permission to push changes
+
 on:
   push:
     branches:
