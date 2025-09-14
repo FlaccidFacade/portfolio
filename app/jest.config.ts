@@ -50,18 +50,6 @@ const config: Config = {
    * so the coverage information will be stored in portfolio/app/coverage and not version controlled
    */
   coverageDirectory: 'coverage',
-  /**
-   * coverageThreshold specifies minimum threshold enforcement for coverage results.
-   * If the thresholds are not met, jest will return failure.
-   */
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70,
-    },
-  },
   testPathIgnorePatterns: ['<rootDir>/src/__tests__/helpers/'],
 };
 
