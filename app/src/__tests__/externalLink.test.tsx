@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import ExternalLink from '../components/ExternalLink';
+import { AnchorProvider } from '../components/AnchorContext';
 
 // Mock console.error to throw an error
 beforeAll(() => {
@@ -166,12 +167,12 @@ describe('ExternalLink Component', () => {
   it('fails when wrapped inside an anchor tag', () => {
     expect(() => {
       render(
-        <a href="https://another-link.com">
+        <AnchorProvider>
           <ExternalLink id="test-link-nested" link="https://example.com">
             Nested Link
           </ExternalLink>
-        </a>
+        </AnchorProvider>
       );
-    }).toThrow();
+    }).toThrow('ExternalLink cannot be used inside an anchor tag');
   });
 });
