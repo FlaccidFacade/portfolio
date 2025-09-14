@@ -1,4 +1,5 @@
 import React, { isValidElement, ReactNode } from 'react';
+import { useAnchorContext } from './AnchorContext';
 
 interface ExternalLinkProps {
   id: string;
@@ -19,11 +20,16 @@ const containsAnchor = (children: ReactNode): boolean => {
 };
 
 const ExternalLink: React.FC<ExternalLinkProps> = ({ id, link, children }) => {
-  const shouldWrapInSpan = containsAnchor(children);
+  const { isInsideAnchor } = useAnchorContext();
+  const shouldWrapInSpan = containsAnchor(children) || isInsideAnchor;
 
   const handleClick = () => {
     window.open(link, '_blank', 'noopener,noreferrer');
   };
+
+  if (isInsideAnchor) {
+    throw new Error('ExternalLink cannot be used inside an anchor tag');
+  }
 
   return shouldWrapInSpan ? (
     <span data-testid={id} onClick={handleClick} style={{ cursor: 'pointer' }}>
