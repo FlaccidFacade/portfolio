@@ -7,7 +7,7 @@ automatically label pull requests created by [Dependabot](https://github.com/dep
 
 There are two key pieces:
 
-### 1 .github/labeler.yml
+### 1. .github/labeler.yml
 
 ```yaml
 dependabot:
