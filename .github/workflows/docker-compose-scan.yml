@@ -1,0 +1,28 @@
+name: Docker Compose Security Scan
+
+on:
+  push:
+    paths:
+      - 'compose.yml'
+      - '.github/workflows/docker-compose-scan.yml'
+  pull_request:
+    paths:
+      - 'compose.yml'
+      - '.github/workflows/docker-compose-scan.yml'
+
+jobs:
+  checkov-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install checkov
+        run: pip install checkov==2.3.228
+      - name: Run checkov on compose.yml
+        run: checkov -f compose.yml --soft-fail
