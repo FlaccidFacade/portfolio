@@ -31,7 +31,7 @@ Uses the actions/labeler action to read rules from .github/labeler.yml.
 
 Applies the dependabot label if the PR branch name matches dependabot/**.
 
-Why this is useful
+## Why this is useful
 
 Makes Dependabot PRs easier to filter and triage.
 
