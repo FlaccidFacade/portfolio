@@ -49,3 +49,11 @@ updates:
         patterns:
           - "eslint"
           - "prettier"
+
+  - package-ecosystem: "docker"
+    directory: "/" # Location of Dockerfile or compose.yml
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "docker"
+    target-branch: "main"
