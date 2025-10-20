@@ -51,26 +51,29 @@ This repository uses [CodeQL](https://codeql.github.com/) for automated security
 ### 1. .github/workflows/codeql.yml
 
 The CodeQL workflow runs on:
-- Every push to the `main` branch (when app code or Docker configs change)
-- Every pull request to `main` (when app code or Docker configs change)
+- Every push to the `main` branch (when app code changes)
+- Every pull request to `main` (when app code changes)
 - Weekly schedule (Mondays at 00:00 UTC)
 
-The workflow analyzes JavaScript/TypeScript code and Docker configurations for:
+The workflow analyzes JavaScript/TypeScript code for:
 - Security vulnerabilities
 - Code quality issues
 - Best practice violations
 
+
+> **Note:** Scanning Docker configurations (e.g., `compose.yml`) for security issues requires a separate tool or workflow (such as [Trivy](https://github.com/aquasecurity/trivy) or [Dockle](https://github.com/goodwithtech/dockle)). CodeQL does **not** analyze Docker Compose files.
+
 ### 2. .github/codeql/codeql-config.yml
 
 Custom configuration that specifies:
-- **Paths to scan**: Application source code (`app/src`, `app/public`) and Docker configuration (`compose.yml`)
+- **Paths to scan**: Application source code (`app/src`, `app/public`)
 - **Paths to ignore**: Test files, node_modules, build artifacts
 - **Queries**: Security and quality queries from the CodeQL standard library
 
 ## Why this is useful
 
 - Automatically detects security vulnerabilities before they reach production
-- Scans Docker configurations for misconfigurations and security issues
+- (Optional) Docker configurations can be scanned for misconfigurations and security issues using a separate tool/workflow
 - Provides detailed reports in GitHub Security tab
 - Runs on every code change and weekly for new vulnerability discoveries
 - Helps maintain security compliance and best practices
