@@ -4,7 +4,6 @@ name: "CodeQL Custom Configuration"
 paths:
   - app/src
   - app/public
-  - compose.yml
 
 # Paths to exclude from the analysis
 paths-ignore:
