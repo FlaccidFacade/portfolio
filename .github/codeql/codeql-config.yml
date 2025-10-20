@@ -1,0 +1,23 @@
+name: "CodeQL Custom Configuration"
+
+# Paths to include in the analysis
+paths:
+  - app/src
+  - app/public
+  - compose.yml
+
+# Paths to exclude from the analysis
+paths-ignore:
+  - app/node_modules
+  - app/.next
+  - app/coverage
+  - "**/test/**"
+  - "**/__tests__/**"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.test.js"
+  - "**/*.test.jsx"
+
+# Queries to run
+queries:
+  - uses: security-and-quality
