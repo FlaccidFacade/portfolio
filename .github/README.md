@@ -22,7 +22,7 @@ dependabot/npm_and_yarn/lodash-4.17.21.
 When a PR comes from a branch matching this pattern, the dependabot label is applied.
 
 
-### 2 .github/workflows/labeler.yml
+### 2. .github/workflows/labeler.yml
 
 
 Runs whenever a pull request is opened.
