@@ -4,33 +4,44 @@ permissions:
   contents: write  # Grants permission to push changes
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
     branches:
       - main
 
 jobs:
   update-readme:
     runs-on: ubuntu-22.04
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Download coverage report
-        uses: actions/download-artifact@v3
+      - name: Download coverage artifact
+        uses: dawidd6/action-download-artifact@v6
         with:
           name: coverage-report
           path: ./coverage
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: ci.yml
+          workflow_conclusion: success
 
       - name: Parse coverage report and update README
         run: |
           COVERAGE=$(jq '.total.lines.pct' ./coverage/coverage-summary.json)
-          sed -i "s/![Coverage](https:\/\/img.shields.io\/badge\/coverage-[0-9]*%20-brightgreen)/![Coverage](https:\/\/img.shields.io\/badge\/coverage-${COVERAGE}%25-brightgreen)/" README.md
+          sed -i "s/![Coverage](https:\/\/img.shields.io\/badge\/coverage-[0-9]*%25-brightgreen)/![Coverage](https:\/\/img.shields.io\/badge\/coverage-${COVERAGE}%25-brightgreen)/" README.md
 
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add README.md
-          git commit -m "Update coverage badge"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update coverage badge to ${COVERAGE}%"
+            git push
+          fi
