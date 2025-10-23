@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'app/**'
-      - 'compose.yml'
       - '.github/workflows/codeql.yml'
       - '.github/codeql/**'
   pull_request:
@@ -14,7 +13,6 @@ on:
       - main
     paths:
       - 'app/**'
-      - 'compose.yml'
       - '.github/workflows/codeql.yml'
       - '.github/codeql/**'
   schedule:
