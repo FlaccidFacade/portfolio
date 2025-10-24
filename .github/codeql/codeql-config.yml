@@ -1,6 +1,7 @@
 name: "CodeQL Custom Configuration"
 
 # Paths to include in the analysis
+# Note: 'compose.yml' is not included because CodeQL does not support analysis of Docker Compose files.
 paths:
   - app/src
   - app/public
