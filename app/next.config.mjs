@@ -1,3 +1,6 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -12,23 +15,47 @@ const nextConfig = {
       },
     ];
   },
-  webpack: async (config, options) => {
+  webpack: (config, options) => {
     // Make Codecov plugin optional and load only when available and token is set.
     if (process.env.CODECOV_TOKEN) {
       try {
-        const mod = await import("@codecov/nextjs-webpack-plugin");
-        if (mod && mod.codecovNextJSWebpackPlugin) {
+        // Prefer the Next.js-specific helper if available
+        const maybeNextPlugin = require("@codecov/nextjs-webpack-plugin");
+        if (maybeNextPlugin && maybeNextPlugin.codecovNextJSWebpackPlugin) {
           config.plugins.push(
-            mod.codecovNextJSWebpackPlugin({
+            maybeNextPlugin.codecovNextJSWebpackPlugin({
               enableBundleAnalysis: true,
               bundleName: "example-nextjs-webpack-bundle",
               uploadToken: process.env.CODECOV_TOKEN,
               webpack: options.webpack,
             }),
           );
+        } else {
+          // Fallback to the generic webpack plugin if the Next plugin isn't present
+          const { CodecovWebpackPlugin } = require("@codecov/webpack-plugin");
+          config.plugins.push(
+            new CodecovWebpackPlugin({
+              enableBundleAnalysis: true,
+              bundleName: "example-nextjs-webpack-bundle",
+              uploadToken: process.env.CODECOV_TOKEN,
+            }),
+          );
         }
       } catch (e) {
-        // Plugin not installed or unsupported; continue without it.
+        try {
+          const { CodecovWebpackPlugin } = require("@codecov/webpack-plugin");
+          config.plugins.push(
+            new CodecovWebpackPlugin({
+              enableBundleAnalysis: true,
+              bundleName: "example-nextjs-webpack-bundle",
+              uploadToken: process.env.CODECOV_TOKEN,
+            }),
+          );
+        } catch (err) {
+          // Plugin is optional; continue without coverage reporting if not available.
+          // Optionally log the error for debugging:
+          // console.warn("CodecovWebpackPlugin could not be loaded:", err);
+        }
       }
     }
     return config;

@@ -19,18 +19,18 @@ on:
 
 jobs:
   sonar-to-gh-issues:
+    if: ${{ github.repository == 'FlaccidFacade/portfolio' }}
     runs-on: ubuntu-22.04
     env:
       SONAR_HOST: https://sonarcloud.io
       SONAR_PROJECT_KEY: FlaccidFacade_portfolio
-      # Set this repo variable to override the default assignee:
-      # Settings → Secrets and variables → Actions → Variables → DEFAULT_ISSUE_ASSIGNEE
       ISSUE_ASSIGNEE: ${{ vars.DEFAULT_ISSUE_ASSIGNEE || github.repository_owner }}
-      MAX_CREATE: ${{ vars.SONAR_ISSUE_MAX_CREATE || 20 }} # safety cap per run
+      MAX_CREATE: ${{ vars.SONAR_ISSUE_MAX_CREATE || 20 }}
+      ONLY_NEW: ${{ vars.SONAR_ONLY_NEW || 'true' }}
     steps:
       - name: Ensure jq and gh are available
         run: |
-          command -v jq >/dev/null || sudo apt-get update && sudo apt-get install -y jq
+          command -v jq >/dev/null || { sudo apt-get update && sudo apt-get install -y jq; }
           gh --version
 
       - name: Ensure "sonar" label exists
@@ -38,11 +38,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          if ! gh label list --limit 200 | grep -q '^sonar\s'; then
-            gh label create sonar --color FEF2C0 --description "Created from SonarCloud"
-          fi
+          gh label view sonar >/dev/null 2>&1 || gh label create sonar --color FEF2C0 --description "Created from SonarCloud"
 
-      - name: Create GitHub Issues from SonarCloud (new code only)
+      - name: Create GitHub Issues from SonarCloud (new code by default)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -63,67 +61,68 @@ jobs:
           PAGE=1
           PS=100
 
-          # Fetch only “new code” issues to avoid flooding.
-          # Falls back to all OPEN/CONFIRMED/REOPENED if you set vars.SONAR_ONLY_NEW=false
-          ONLY_NEW="${{ vars.SONAR_ONLY_NEW || 'true' }}"
-
           while :; do
             URL="${HOST}/api/issues/search?componentKeys=${PROJECT}&statuses=OPEN,CONFIRMED,REOPENED&ps=${PS}&p=${PAGE}"
             if [ "${ONLY_NEW}" = "true" ]; then
               URL="${URL}&sinceLeakPeriod=true"
             fi
 
-            RESP="$(curl -fsSL -u "${SONAR_TOKEN}:" "${URL}")" || { echo "Sonar API error"; exit 1; }
+            RESP="$(curl -fsSL -u "${SONAR_TOKEN}:" "${URL}")"
             TOTAL=$(echo "${RESP}" | jq -r '.total')
             COUNT=$(echo "${RESP}" | jq -r '.issues | length')
             [ "${COUNT}" -eq 0 ] && break
 
             echo "Page ${PAGE}: ${COUNT} items (total ${TOTAL})"
 
-            echo "${RESP}" | jq -c '.issues[] | {
+            mapfile -t ISSUES < <(echo "${RESP}" | jq -c '.issues[] | {
               key, rule, severity, type, message,
               project: .project, component: .component, line: (.textRange.line // null),
               creationDate
-            }' | while read -r ISSUE_JSON; do
-              [ "${CREATED}" -ge "${MAX_CREATE}" ] && { echo "Reached MAX_CREATE=${MAX_CREATE}"; exit 0; }
+            }')
 
-              KEY=$(echo "${ISSUE_JSON}" | jq -r '.key')
-              RULE=$(echo "${ISSUE_JSON}" | jq -r '.rule')
-              SEV=$(echo "${ISSUE_JSON}" | jq -r '.severity')
-              TYPE=$(echo "${ISSUE_JSON}" | jq -r '.type')
-              MSG=$(echo "${ISSUE_JSON}" | jq -r '.message')
-              COMP=$(echo "${ISSUE_JSON}" | jq -r '.component')
-              LINE=$(echo "${ISSUE_JSON}" | jq -r '.line')
-              CREATED_AT=$(echo "${ISSUE_JSON}" | jq -r '.creationDate')
+            for ISSUE_JSON in "${ISSUES[@]}"; do
+              if [ "${CREATED}" -ge "${MAX_CREATE}" ]; then
+                echo "Reached MAX_CREATE=${MAX_CREATE}"
+                break 2
+              fi
+
+              KEY=$(jq -r '.key' <<<"${ISSUE_JSON}")
+              RULE=$(jq -r '.rule' <<<"${ISSUE_JSON}")
+              SEV=$(jq -r '.severity' <<<"${ISSUE_JSON}")
+              TYPE=$(jq -r '.type' <<<"${ISSUE_JSON}")
+              MSG=$(jq -r '.message' <<<"${ISSUE_JSON}")
+              COMP=$(jq -r '.component' <<<"${ISSUE_JSON}")
+              LINE=$(jq -r '.line' <<<"${ISSUE_JSON}")
+              CREATED_AT=$(jq -r '.creationDate' <<<"${ISSUE_JSON}")
               ISSUE_URL="${HOST}/project/issues?id=${PROJECT}&issues=${KEY}&open=${KEY}"
 
-              # Dedupe by searching for the Sonar key in existing issues
-              if gh api /search/issues -f q="repo:${REPO} ${KEY} in:body is:issue" --jq '.total_count' | grep -q '^[1-9]'; then
+              EXISTS=$(gh api /search/issues -f q="repo:${REPO} ${KEY} in:body is:issue" --jq '.total_count')
+              if [ "${EXISTS}" -gt 0 ]; then
                 echo "Exists: ${KEY}"
                 continue
               fi
 
               TITLE="[Sonar][${SEV}/${TYPE}] ${MSG}"
-              BODY=$(cat <<EOF
-SonarCloud issue detected.
+              {
+                echo "SonarCloud issue detected."
+                echo
+                echo "- Severity: ${SEV}"
+                echo "- Type: ${TYPE}"
+                echo "- Rule: ${RULE}"
+                printf -- "- Component: %s" "${COMP}"
+                [ "${LINE}" != "null" ] && printf ":%s" "${LINE}"
+                echo
+                echo "- Created: ${CREATED_AT}"
+                echo
+                echo "Link: ${ISSUE_URL}"
+                echo
+                echo "Sonar issue key: ${KEY}"
+              } > body.md
 
-- Severity: ${SEV}
-- Type: ${TYPE}
-- Rule: ${RULE}
-- Component: ${COMP}$( [ "${LINE}" != "null" ] && printf ':%s' "${LINE}" )
-- Created: ${CREATED_AT}
-
-Link: ${ISSUE_URL}
-
-Sonar issue key: ${KEY}
-EOF
-)
-
-              # Create issue assigned to you, labeled "sonar"
               gh issue create \
                 --repo "${REPO}" \
                 --title "${TITLE}" \
-                --body "${BODY}" \
+                --body-file body.md \
                 --label "sonar" \
                 --assignee "${ASSIGNEE}"
 
@@ -136,3 +135,6 @@ EOF
           done
 
           echo "Done. Created ${CREATED} issues."
+
+
+
