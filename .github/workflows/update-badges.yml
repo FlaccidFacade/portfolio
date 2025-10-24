@@ -1,3 +1,14 @@
+# This workflow automatically updates the build status and version badges in README.md
+# 
+# Triggers:
+# - After CI workflow completes (success or failure)
+# - When the version file is updated
+#
+# The workflow:
+# 1. Reads the version from the root/version file
+# 2. Determines build status from the CI workflow or preserves existing status
+# 3. Updates both badges in README.md using shields.io badge format
+# 4. Commits and pushes the changes if there are any
 name: Update README Badges
 
 permissions:
