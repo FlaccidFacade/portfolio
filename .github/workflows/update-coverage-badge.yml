@@ -31,7 +31,7 @@ jobs:
 
       - name: Parse coverage report and update README
         run: |
-          COVERAGE=$(jq '.total.lines.pct' ./coverage/coverage-summary.json)
+          COVERAGE=$(jq '.total.lines.pct' ./coverage/coverage-final.json)
           sed -i "s/![Coverage](https:\/\/img.shields.io\/badge\/coverage-[0-9]*%25-brightgreen)/![Coverage](https:\/\/img.shields.io\/badge\/coverage-${COVERAGE}%25-brightgreen)/" README.md
 
       - name: Commit and push changes
