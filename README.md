@@ -59,3 +59,5 @@ docker compose up
 ### Selenium in a separate directory from next.js
 
 We place our selenium tests separately to ensure loose coupling between our system tests and app source code. For example we can adjust our runtime in selenium to python, and since this adjustment is in a separate container we can ensure no adverse affects on our app. This also makes it easier to avoid unnecessary code deployments.
+
+![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)
