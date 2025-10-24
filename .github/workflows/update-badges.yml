@@ -88,14 +88,33 @@ jobs:
             echo -e "\n![Version](${VERSION_BADGE_URL})" >> "$README_FILE"
           fi
 
-      - name: Commit and push changes
+      - name: Create PR with coverage update
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          BRANCH_NAME="update-coverage-badge-$(date +%s)"
+          COVERAGE="${{ steps.coverage.outputs.coverage }}"
+          
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Create and switch to new branch
+          git checkout -b "$BRANCH_NAME"
           git add README.md
+          
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update README badges (build/version)"
-            git push
+            git commit -m "Update coverage badge to ${COVERAGE}%"
+            git push origin "$BRANCH_NAME"
+            
+            # Create PR with auto-merge
+            gh pr create \
+              --title "Update coverage badge to ${COVERAGE}%" \
+              --body "Automated update of coverage badge based on latest CI run." \
+              --base main \
+              --head "$BRANCH_NAME"
+            
+            # Enable auto-merge
+            gh pr merge "$BRANCH_NAME" --auto --squash
           fi
