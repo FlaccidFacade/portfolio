@@ -33,7 +33,7 @@ jobs:
           VERSION=$(tr -d '\n' < version)
           if [ -f sonar-project.properties ]; then
             # Replace literal "$version" placeholder with the actual version value
-            sed -i "s#\\$version#${VERSION}#g" sonar-project.properties
+            sed -i "s#\\$version-github-actions-injection#${VERSION}#g" sonar-project.properties
           else
             echo "sonar-project.properties not found, skipping version injection"
           fi
