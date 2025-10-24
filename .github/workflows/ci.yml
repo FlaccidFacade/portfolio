@@ -46,4 +46,3 @@ jobs:
         with:
           name: coverage-report
           path: ./app/coverage/coverage-final.json
-          path: ./app/coverage
