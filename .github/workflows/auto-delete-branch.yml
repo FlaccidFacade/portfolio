@@ -31,7 +31,7 @@ jobs:
               });
               console.log(`Successfully deleted branch: ${branchName}`);
             } catch (error) {
-              if (error.status === 422) {
+              if (error.status === 404 || error.status === 422) {
                 console.log(`Branch ${branchName} was already deleted or does not exist.`);
               } else {
                 throw error;
