@@ -5,6 +5,8 @@
 ![License](https://img.shields.io/github/license/FlaccidFacade/portfolio)
 ![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio/app)
 
+[![codecov](https://codecov.io/gh/FlaccidFacade/portfolio/branch/main/graph/badge.svg)](https://codecov.io/gh/FlaccidFacade/portfolio)
+
 This is Zachary Turner's portfolio source code used to explore Next.js by [Vercel](./vercel.info). Currently, this project is a static page to host some basic layout with site links. The objectives are rapid implementation, cost-efficiency, simplicity, and Test-Driven Development (TDD) using containerization and automated testing. The project is designed to scale efficiently while minimizing code duplication through a nano-component approach. The ultimate goal is to practice, explore some new frameworks, familiarize myself with alternative solutions, and enable others.
 
 ## project plan
@@ -16,6 +18,9 @@ This is Zachary Turner's portfolio source code used to explore Next.js by [Verce
 - [x] alpha.charlie : ensure coverage
 - [x] alpha.delta : enhance page layout
 - [/] alpha.echo : add content to page.
+    [ ] explain: codecov vs custom cov badge implentations, pros & cons for each, and possible alternatives?
+    [ ] explain: github-workflow ci automation.
+    [ ] explain: github-ruleset with pr automation for codeowners configuration.
 - [/] beta.zed : enable readme badge automation.
 - [/] beta.alpha : add hosting free tier fail safes.
 - [/] beta.beta : production hosting.
