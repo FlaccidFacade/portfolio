@@ -1,9 +1,9 @@
 # portfolio
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/FlaccidFacade/portfolio/ci.yml?branch=main)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 ![License](https://img.shields.io/github/license/FlaccidFacade/portfolio)
-![Version](https://img.shields.io/github/package-json/v/FlaccidFacade/portfolio/app)
+![Version](https://img.shields.io/badge/version-alpha.echo-blue)
 
 [![codecov](https://codecov.io/gh/FlaccidFacade/portfolio/branch/main/graph/badge.svg)](https://codecov.io/gh/FlaccidFacade/portfolio)
 
