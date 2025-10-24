@@ -1,0 +1,23 @@
+name: "CodeQL Custom Configuration"
+
+# Paths to include in the analysis
+# Note: 'compose.yml' is not included because CodeQL does not support analysis of Docker Compose files.
+paths:
+  - app/src
+  - app/public
+
+# Paths to exclude from the analysis
+paths-ignore:
+  - app/node_modules
+  - app/.next
+  - app/coverage
+  - "**/test/**"
+  - "**/__tests__/**"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.test.js"
+  - "**/*.test.jsx"
+
+# Queries to run
+queries:
+  - uses: security-and-quality
