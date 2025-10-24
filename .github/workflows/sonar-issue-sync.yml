@@ -28,6 +28,9 @@ jobs:
       MAX_CREATE: ${{ vars.SONAR_ISSUE_MAX_CREATE || 20 }}
       ONLY_NEW: ${{ vars.SONAR_ONLY_NEW || 'true' }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Ensure jq and gh are available
         run: |
           command -v jq >/dev/null || { sudo apt-get update && sudo apt-get install -y jq; }
