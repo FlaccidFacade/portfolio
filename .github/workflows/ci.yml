@@ -35,7 +35,8 @@ jobs:
             # Replace literal "$version" placeholder with the actual version value
             sed -i "s#\\$version#${VERSION}#g" sonar-project.properties
           else
-
+            echo "sonar-project.properties not found, skipping version injection"
+          fi
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@2f77a1ec69fb1d595b06f35ab27e97605bdef703
         env:
