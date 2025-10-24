@@ -18,7 +18,7 @@ This is Zachary Turner's portfolio source code used to explore Next.js by [Verce
 - [x] alpha.charlie : ensure coverage
 - [x] alpha.delta : enhance page layout
 - [/] alpha.echo : add content to page.
-    [ ] explain: codecov vs custom cov badge implentations, pros & cons for each, and possible alternatives?
+    [ ] explain: codecov vs custom cov badge implementations, pros & cons for each, and possible alternatives?
     [ ] explain: github-workflow ci automation.
     [ ] explain: github-ruleset with pr automation for codeowners configuration.
 - [/] beta.zed : enable readme badge automation.
@@ -32,7 +32,7 @@ This is Zachary Turner's portfolio source code used to explore Next.js by [Verce
     [/] aws hosting environment
     [ ] github-actions release
 - [ ] release : v0.0.0 launch
-- [ ] v0.1.0 : add version control gaurds
+- [ ] v0.1.0 : add version control guards
 - [ ] vTBD : enable i18 translations
 - [ ] vTBD : practice french - 100% translation in fr
 - [ ] vTBD : practice tailwind css - pop up and auto fadeout alerts
