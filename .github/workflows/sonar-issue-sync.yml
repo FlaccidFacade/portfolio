@@ -138,4 +138,3 @@ jobs:
 
 
 
-          echo "Done. Created ${CREATED} issues."
