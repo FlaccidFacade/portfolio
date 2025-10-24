@@ -28,11 +28,34 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: ci.yml
           workflow_conclusion: success
+          
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Parse coverage report and update README
+      - name: Compute total coverage
+        id: coverage
         run: |
-          COVERAGE=$(jq '.total.lines.pct' ./coverage/coverage-final.json)
-          sed -i "s/![Coverage](https:\/\/img.shields.io\/badge\/coverage-[0-9]*%25-brightgreen)/![Coverage](https:\/\/img.shields.io\/badge\/coverage-${COVERAGE}%25-brightgreen)/" README.md
+          COVERAGE=$(jq '
+            [.[] | .s | to_entries[]] |
+            map(.value) as $counts |
+            ($counts | map(select(.>0)) | length) / ($counts | length) * 100
+          ' ./coverage/coverage-final.json)
+          COVERAGE_ROUNDED=$(printf "%.0f" $COVERAGE)
+          echo "Coverage: $COVERAGE_ROUNDED%"
+          echo "coverage=$COVERAGE_ROUNDED" >> $GITHUB_OUTPUT
+
+      - name: Update README badge
+        run: |
+          BADGE_URL="https://img.shields.io/badge/Coverage-${{ steps.coverage.outputs.coverage }}%25-brightgreen"
+          README_FILE="README.md"
+          
+          # Replace the existing coverage badge line or add if missing
+          if grep -q 'https://img.shields.io/badge/Coverage' "$README_FILE"; then
+            sed -i "s|https://img.shields.io/badge/Coverage.*|$BADGE_URL|" "$README_FILE"
+          else
+            echo -e "\n![Coverage]($BADGE_URL)" >> "$README_FILE"
+          fi
+
 
       - name: Commit and push changes
         run: |
