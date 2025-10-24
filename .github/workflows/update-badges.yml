@@ -1,35 +1,31 @@
-# This workflow automatically updates the build status and version badges in README.md
-# 
+# This workflow updates the build status and version badges in README.md
 # Triggers:
 # - After CI workflow completes (success or failure)
-# - When the version file is updated
-#
-# The workflow:
-# 1. Reads the version from the root/version file
-# 2. Determines build status from the CI workflow or preserves existing status
-# 3. Updates both badges in README.md using shields.io badge format
-# 4. Commits and pushes the changes if there are any
+# - When the version file is updated on main
+
 name: Update README Badges
 
+concurrency:
+  group: update-badges-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
-  contents: write  # Grants permission to push changes
+  contents: write
 
 on:
   workflow_run:
     workflows: ["CI"]
-    types:
-      - completed
-    branches:
-      - main
+    types: [completed]
+    branches: [main]
   push:
-    paths:
-      - 'version'
-    branches:
-      - main
+    paths: ['version']
+    branches: [main]
 
 jobs:
   update-badges:
     runs-on: ubuntu-22.04
+    # Only push badge updates from the canonical repo (avoid forks trying to push)
+    if: ${{ github.repository == 'FlaccidFacade/portfolio' }}
 
     steps:
       - name: Checkout code
@@ -42,45 +38,55 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
 
-      - name: Determine build status
+      - name: Determine build status (workflow_run only)
         id: build_status
         run: |
-          if [ "${{ github.event_name }}" == "workflow_run" ]; then
-            if [ "${{ github.event.workflow_run.conclusion }}" == "success" ]; then
-              echo "status=passing" >> $GITHUB_OUTPUT
-              echo "color=brightgreen" >> $GITHUB_OUTPUT
-            else
-              echo "status=failing" >> $GITHUB_OUTPUT
-              echo "color=red" >> $GITHUB_OUTPUT
-            fi
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            case "${{ github.event.workflow_run.conclusion }}" in
+              success)
+                echo "status=passing" >> $GITHUB_OUTPUT
+                echo "color=brightgreen" >> $GITHUB_OUTPUT ;;
+              cancelled)
+                echo "status=cancelled" >> $GITHUB_OUTPUT
+                echo "color=yellow" >> $GITHUB_OUTPUT ;;
+              skipped|neutral)
+                echo "status=skipped" >> $GITHUB_OUTPUT
+                echo "color=lightgrey" >> $GITHUB_OUTPUT ;;
+              failure|timed_out|action_required|*)
+                echo "status=failing" >> $GITHUB_OUTPUT
+                echo "color=red" >> $GITHUB_OUTPUT ;;
+            esac
+            echo "update_build=true" >> $GITHUB_OUTPUT
           else
-            # When triggered by version file change, read existing status from README
-            if grep -q "build-passing-brightgreen" README.md; then
-              echo "status=passing" >> $GITHUB_OUTPUT
-              echo "color=brightgreen" >> $GITHUB_OUTPUT
-            elif grep -q "build-failing-red" README.md; then
-              echo "status=failing" >> $GITHUB_OUTPUT
-              echo "color=red" >> $GITHUB_OUTPUT
-            else
-              # Default to passing if no existing badge found (e.g., first run)
-              echo "status=passing" >> $GITHUB_OUTPUT
-              echo "color=brightgreen" >> $GITHUB_OUTPUT
-            fi
+            # For version bump pushes, don't touch the build badge — only update version
+            echo "update_build=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Update README badges
+      - name: Update README build badge
+        if: ${{ steps.build_status.outputs.update_build == 'true' }}
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
           BUILD_STATUS="${{ steps.build_status.outputs.status }}"
           BUILD_COLOR="${{ steps.build_status.outputs.color }}"
-          
-          # Update build status badge (handles both old dynamic badge and new static badge)
-          sed -i 's#!\[Build Status\](https://img.shields.io/github/actions/workflow/status/[^)]*)#![Build Status](https://img.shields.io/badge/build-'"${BUILD_STATUS}"'-'"${BUILD_COLOR}"')#' README.md
-          sed -i 's#!\[Build Status\](https://img.shields.io/badge/build-[^-]*-[^)]*)#![Build Status](https://img.shields.io/badge/build-'"${BUILD_STATUS}"'-'"${BUILD_COLOR}"')#' README.md
-          
-          # Update version badge (handles both old package.json badge and new version file badge)
-          sed -i 's#!\[Version\](https://img.shields.io/github/package-json/v/[^)]*)#![Version](https://img.shields.io/badge/version-'"${VERSION}"'-blue)#' README.md
-          sed -i 's#!\[Version\](https://img.shields.io/badge/version-[^-]*-[^)]*)#![Version](https://img.shields.io/badge/version-'"${VERSION}"'-blue)#' README.md
+          README_FILE="README.md"
+          BUILD_BADGE_URL="https://img.shields.io/badge/build-${BUILD_STATUS}-${BUILD_COLOR}"
+
+          if grep -q '!\[Build Status\](' "$README_FILE"; then
+            sed -i "s|!\[Build Status\](https://img.shields.io/[^)]*)|![Build Status](${BUILD_BADGE_URL})|" "$README_FILE"
+          else
+            echo -e "\n![Build Status](${BUILD_BADGE_URL})" >> "$README_FILE"
+          fi
+
+      - name: Update README version badge
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          README_FILE="README.md"
+          VERSION_BADGE_URL="https://img.shields.io/badge/version-${VERSION}-blue"
+
+          if grep -q '!\[Version\](' "$README_FILE"; then
+            sed -i "s|!\[Version\](https://img.shields.io/[^)]*)|![Version](${VERSION_BADGE_URL})|" "$README_FILE"
+          else
+            echo -e "\n![Version](${VERSION_BADGE_URL})" >> "$README_FILE"
+          fi
 
       - name: Commit and push changes
         run: |
@@ -90,6 +96,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update badges: build status and version ${{ steps.version.outputs.version }}"
+            git commit -m "Update README badges (build/version)"
             git push
           fi
