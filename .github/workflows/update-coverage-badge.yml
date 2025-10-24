@@ -69,7 +69,7 @@ jobs:
         run: |
           # Generate a human-readable timestamp and random component for branch naming
           TIMESTAMP=$(date '+%Y-%m-%d-%H%M%S')
-          RANDOM_ID=$(shuf -i 1000-9999 -n 1)
+          RANDOM_ID=$(( RANDOM % 9000 + 1000 ))
           BRANCH_NAME="coverage-update-${TIMESTAMP}-${RANDOM_ID}"
           COVERAGE="${{ steps.coverage.outputs.coverage }}"
 
