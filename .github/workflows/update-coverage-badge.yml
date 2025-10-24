@@ -57,7 +57,8 @@ jobs:
             echo -e "\n![Coverage]($BADGE_URL)" >> "$README_FILE"
           fi
 
-      - name: Upload coverage reports to Codecov use full version from https://github.com/codecov/codecov-action/releases so says sonarQube!
+      # Use the full version from https://github.com/codecov/codecov-action/releases (so says SonarQube!)
+      - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
