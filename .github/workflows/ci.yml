@@ -27,6 +27,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+    
+      - name: Inject version into sonar-project.properties
+        run: |
+          VERSION=$(cat version)
+          sed -i "s/^sonar.projectVersion=.*/sonar.projectVersion=$VERSION/" sonar-project.properties || \
+          echo "sonar.projectVersion=$VERSION" >> sonar-project.properties
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
