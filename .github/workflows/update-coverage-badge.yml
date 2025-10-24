@@ -2,6 +2,7 @@ name: Update README Coverage Badge
 
 permissions:
   contents: write  # Grants permission to push changes
+  pull-requests: write
 
 on:
   workflow_run:
