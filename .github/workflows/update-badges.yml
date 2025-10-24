@@ -1,0 +1,95 @@
+# This workflow automatically updates the build status and version badges in README.md
+# 
+# Triggers:
+# - After CI workflow completes (success or failure)
+# - When the version file is updated
+#
+# The workflow:
+# 1. Reads the version from the root/version file
+# 2. Determines build status from the CI workflow or preserves existing status
+# 3. Updates both badges in README.md using shields.io badge format
+# 4. Commits and pushes the changes if there are any
+name: Update README Badges
+
+permissions:
+  contents: write  # Grants permission to push changes
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+    branches:
+      - main
+  push:
+    paths:
+      - 'version'
+    branches:
+      - main
+
+jobs:
+  update-badges:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read version from file
+        id: version
+        run: |
+          VERSION=$(cat version | tr -d '\n' | xargs)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Determine build status
+        id: build_status
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_run" ]; then
+            if [ "${{ github.event.workflow_run.conclusion }}" == "success" ]; then
+              echo "status=passing" >> $GITHUB_OUTPUT
+              echo "color=brightgreen" >> $GITHUB_OUTPUT
+            else
+              echo "status=failing" >> $GITHUB_OUTPUT
+              echo "color=red" >> $GITHUB_OUTPUT
+            fi
+          else
+            # When triggered by version file change, read existing status from README
+            if grep -q "build-passing-brightgreen" README.md; then
+              echo "status=passing" >> $GITHUB_OUTPUT
+              echo "color=brightgreen" >> $GITHUB_OUTPUT
+            elif grep -q "build-failing-red" README.md; then
+              echo "status=failing" >> $GITHUB_OUTPUT
+              echo "color=red" >> $GITHUB_OUTPUT
+            else
+              # Default to passing if no existing badge found (e.g., first run)
+              echo "status=passing" >> $GITHUB_OUTPUT
+              echo "color=brightgreen" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Update README badges
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BUILD_STATUS="${{ steps.build_status.outputs.status }}"
+          BUILD_COLOR="${{ steps.build_status.outputs.color }}"
+          
+          # Update build status badge (handles both old dynamic badge and new static badge)
+          sed -i 's#!\[Build Status\](https://img.shields.io/github/actions/workflow/status/[^)]*)#![Build Status](https://img.shields.io/badge/build-'"${BUILD_STATUS}"'-'"${BUILD_COLOR}"')#' README.md
+          sed -i 's#!\[Build Status\](https://img.shields.io/badge/build-[^-]*-[^)]*)#![Build Status](https://img.shields.io/badge/build-'"${BUILD_STATUS}"'-'"${BUILD_COLOR}"')#' README.md
+          
+          # Update version badge (handles both old package.json badge and new version file badge)
+          sed -i 's#!\[Version\](https://img.shields.io/github/package-json/v/[^)]*)#![Version](https://img.shields.io/badge/version-'"${VERSION}"'-blue)#' README.md
+          sed -i 's#!\[Version\](https://img.shields.io/badge/version-[^-]*-[^)]*)#![Version](https://img.shields.io/badge/version-'"${VERSION}"'-blue)#' README.md
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update badges: build status and version ${{ steps.version.outputs.version }}"
+            git push
+          fi
