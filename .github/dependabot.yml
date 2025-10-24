@@ -57,3 +57,11 @@ updates:
     commit-message:
       prefix: "docker"
     target-branch: "main"
+
+  - package-ecosystem: "github-actions"
+    directory: "/" # Location of workflow files
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "actions"
+    target-branch: "main"
