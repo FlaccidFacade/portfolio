@@ -57,8 +57,9 @@ jobs:
             echo -e "\n![Coverage]($BADGE_URL)" >> "$README_FILE"
           fi
 
+      
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -66,16 +67,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BRANCH_NAME="update-coverage-badge-$(date +%s)"
+          # Generate a human-readable timestamp and random component for branch naming
+          TIMESTAMP=$(date '+%Y-%m-%d-%H%M%S')
+          RANDOM_ID=$(( RANDOM % 9000 + 1000 ))
+          BRANCH_NAME="coverage-update-${TIMESTAMP}-${RANDOM_ID}"
           COVERAGE="${{ steps.coverage.outputs.coverage }}"
-          
+
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          # Create and switch to new branch
+
+          # Create and switch to new branch with human-readable name
           git checkout -b "$BRANCH_NAME"
           git add README.md
-          
+
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
@@ -85,7 +89,7 @@ jobs:
             # Create PR with auto-merge
             gh pr create \
               --title "Update coverage badge to ${COVERAGE}%" \
-              --body "Automated update of coverage badge based on latest CI run." \
+              --body "Automated update of coverage badge based on latest CI run. Branch: $BRANCH_NAME" \
               --base main \
               --head "$BRANCH_NAME"
             

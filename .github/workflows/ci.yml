@@ -27,6 +27,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+    
+      - name: Inject version into sonar-project.properties
+        run: |
+          VERSION=$(tr -d '\n' < version)
+          if [ -f sonar-project.properties ]; then
+            # Replace literal "$version" placeholder with the actual version value
+            sed -i "s#\\$version-github-actions-injection#${VERSION}#g" sonar-project.properties
+          else
+            echo "sonar-project.properties not found, skipping version injection"
+          fi
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@2f77a1ec69fb1d595b06f35ab27e97605bdef703
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
