@@ -30,9 +30,11 @@ jobs:
     
       - name: Inject version into sonar-project.properties
         run: |
-          VERSION=$(cat version)
-          sed -i "s/^sonar.projectVersion=.*/sonar.projectVersion=$VERSION/" sonar-project.properties || \
-          echo "sonar.projectVersion=$VERSION" >> sonar-project.properties
+          VERSION=$(tr -d '\n' < version)
+          if [ -f sonar-project.properties ]; then
+            # Replace literal "$version" placeholder with the actual version value
+            sed -i "s#\\$version#${VERSION}#g" sonar-project.properties
+          else
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
