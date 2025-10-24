@@ -51,7 +51,11 @@ const nextConfig = {
               uploadToken: process.env.CODECOV_TOKEN,
             }),
           );
-        } catch {}
+        } catch (err) {
+          // Plugin is optional; continue without coverage reporting if not available.
+          // Optionally log the error for debugging:
+          // console.warn("CodecovWebpackPlugin could not be loaded:", err);
+        }
       }
     }
     return config;
