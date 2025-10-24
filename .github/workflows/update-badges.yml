@@ -92,7 +92,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BRANCH_NAME="update-coverage-badge-$(date +%s)"
+          BRANCH_NAME="update-coverage-badge-$(date +%H%M%S)"
           COVERAGE="${{ steps.coverage.outputs.coverage }}"
           
           git config --global user.name 'github-actions[bot]'
