@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@codecov/nextjs-webpack-plugin": "^1.9.1"
+  }
+}
