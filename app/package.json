@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
@@ -19,6 +19,8 @@
     "react-dom": "^19"
   },
   "devDependencies": {
+    "@codecov/webpack-plugin": "^1.9.1",
+    "@tailwindcss/postcss": "^4.1.16",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
