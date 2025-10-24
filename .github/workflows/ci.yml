@@ -38,11 +38,11 @@ jobs:
         working-directory: ./app
 
       - name: Enforce coverage thresholds
-        run: npm test -- --coverage --coverageThreshold='{"global":{"branches":80,"functions":80,"lines":80,"statements":80}} --coverageReporters=json-summary'
+        run: npm test -- --coverage --coverageThreshold='{"global":{"branches":80,"functions":80,"lines":80,"statements":80}}'
         working-directory: ./app
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: ./app/coverage
+          path: ./app/coverage/coverage-final.json
