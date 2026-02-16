@@ -48,6 +48,7 @@ updates:
       formatting-tools:
         patterns:
           - "eslint"
+          - "eslint-config-next"
           - "prettier"
 
   - package-ecosystem: "docker"

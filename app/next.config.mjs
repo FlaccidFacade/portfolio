@@ -5,7 +5,11 @@ const require = createRequire(import.meta.url);
 
 const nextConfig = {
   // Silence Next 16 Turbopack+webpack-config warning; we still force webpack in CI builds. TODO: a reason to fully migrate to Turbopack?
-  turbopack: {},
+  turbopack: {
+    root: process.cwd(),
+  },
+  // Allow dev server access from Docker host / WSL IP
+  allowedDevOrigins: ['172.25.251.219', '172.19.0.2'],
   async redirects() {
     return [
       {
@@ -20,36 +24,36 @@ const nextConfig = {
     if (process.env.CODECOV_TOKEN) {
       try {
         // Prefer the Next.js-specific helper if available
-        const maybeNextPlugin = require("@codecov/nextjs-webpack-plugin");
+        const maybeNextPlugin = require('@codecov/nextjs-webpack-plugin');
         if (maybeNextPlugin && maybeNextPlugin.codecovNextJSWebpackPlugin) {
           config.plugins.push(
             maybeNextPlugin.codecovNextJSWebpackPlugin({
               enableBundleAnalysis: true,
-              bundleName: "example-nextjs-webpack-bundle",
+              bundleName: 'example-nextjs-webpack-bundle',
               uploadToken: process.env.CODECOV_TOKEN,
               webpack: options.webpack,
-            }),
+            })
           );
         } else {
           // Fallback to the generic webpack plugin if the Next plugin isn't present
-          const { CodecovWebpackPlugin } = require("@codecov/webpack-plugin");
+          const { CodecovWebpackPlugin } = require('@codecov/webpack-plugin');
           config.plugins.push(
             new CodecovWebpackPlugin({
               enableBundleAnalysis: true,
-              bundleName: "example-nextjs-webpack-bundle",
+              bundleName: 'example-nextjs-webpack-bundle',
               uploadToken: process.env.CODECOV_TOKEN,
-            }),
+            })
           );
         }
       } catch (e) {
         try {
-          const { CodecovWebpackPlugin } = require("@codecov/webpack-plugin");
+          const { CodecovWebpackPlugin } = require('@codecov/webpack-plugin');
           config.plugins.push(
             new CodecovWebpackPlugin({
               enableBundleAnalysis: true,
-              bundleName: "example-nextjs-webpack-bundle",
+              bundleName: 'example-nextjs-webpack-bundle',
               uploadToken: process.env.CODECOV_TOKEN,
-            }),
+            })
           );
         } catch (err) {
           // Plugin is optional; continue without coverage reporting if not available.
