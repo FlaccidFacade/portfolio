@@ -1,0 +1,32 @@
+{
+  "name": "Portfolio Dev Container",
+  "dockerComposeFile": [
+    "../compose.yml"
+  ],
+  "service": "next-app",
+  "runServices": ["next-app"],
+  "workspaceFolder": "/app",
+  "shutdownAction": "none",
+  "remoteUser": "root",
+  "forwardPorts": [3000, 9229],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "eg2.vscode-npm-script",
+        "orta.vscode-jest",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        }
+      }
+    }
+  }
+}
