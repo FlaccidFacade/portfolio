@@ -17,7 +17,7 @@
   "prettier.prettierPath": "./app/node_modules/prettier",
 
   "jest.rootPath": "./app",
-  "jest.jestCommandLine": "npm run test:watch",
+  "jest.jestCommandLine": "npx jest",
 
   "typescript.tsdk": "${workspaceFolder}/app/node_modules/typescript/lib"
 }
