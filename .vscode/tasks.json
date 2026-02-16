@@ -14,17 +14,33 @@
         "cwd": "${workspaceFolder}/app"
       }
     },
+    // {
+    //   "label": "Install Dependencies in App",
+    //   "type": "shell",
+    //   "command": "npm install",
+    //   "group": {
+    //     "kind": "build",
+    //     "isDefault": false
+    //   },
+    //   "problemMatcher": [],
+    //   "options": {
+    //     "cwd": "${workspaceFolder}/app"
+    //   },
+    //   "runOptions": {
+    //     "runOn": "folderOpen"
+    //   }
+    // }
     {
-      "label": "Install Dependencies in App",
+      "label": "Start Docker Compose 4 Dev",
       "type": "shell",
-      "command": "npm install",
+      "command": "docker compose up",
       "group": {
         "kind": "build",
         "isDefault": false
       },
       "problemMatcher": [],
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}"
       },
       "runOptions": {
         "runOn": "folderOpen"

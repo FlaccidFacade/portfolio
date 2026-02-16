@@ -3,6 +3,7 @@
   "version": "0.1.3",
   "private": true,
   "scripts": {
+    "predev": "rm -rf .next/dev/cache/turbopack",
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
