@@ -21,7 +21,7 @@ const Confetti: React.FC<ConfettiProps> = ({ children }) => {
     }
   }, [timer]);
 
-  const handleMouseEnter = () => {
+  const handleTrigger = () => {
     if (confettiRef.current && isReady) {
       const rect = confettiRef.current.getBoundingClientRect();
       confetti({
@@ -40,7 +40,8 @@ const Confetti: React.FC<ConfettiProps> = ({ children }) => {
   return (
     <div
       ref={confettiRef}
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={handleTrigger}
+      onClick={handleTrigger}
       style={{ position: 'relative' }}
     >
       <div
