@@ -10,22 +10,45 @@ export default function AboutMe() {
             <div className="w-full mb-10 sm:mb-0 sm:w-1/2">
               <Confetti>
                 <div className="relative h-full ml-0 mr-0 sm:mr-10">
+                  <span className="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-yellow-500 rounded-lg"></span>
+                  <div className="relative h-full p-5 bg-white border-2 border-yellow-500 rounded-lg">
+                    <div className="flex items-center -mt-1">
+                      <h3 className="my-2 ml-3 text-lg font-bold text-gray-800">
+                        Currently a Software Developer CI/CD @ Innomotics
+                      </h3>
+                    </div>
+                    <p className="mt-3 mb-1 text-xs font-medium text-yellow-500 uppercase">
+                      ------------
+                    </p>
+                    <p className="mb-2 text-gray-600">
+                      Working across multiple platforms like UBUNTU, Debian, and
+                      Windows. I am creating custom ci/cd solutions for
+                      embedded, cloud, and end user applications. Writing and
+                      maintaining hardware in the loop tests for variable
+                      frequency drives.
+                    </p>
+                  </div>
+                </div>
+              </Confetti>
+            </div>
+            <div className="w-full mb-10 sm:mb-0 sm:w-1/2">
+              <Confetti>
+                <div className="relative h-full ml-0 mr-0 sm:mr-10">
                   <span className="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
                   <div className="relative h-full p-5 bg-white border-2 border-indigo-500 rounded-lg">
                     <div className="flex items-center -mt-1">
                       <h3 className="my-2 ml-3 text-lg font-bold text-gray-800">
-                        Development Engineer III @ Genesco Inc.
+                        Development Engineer III @ Genesco Inc. ~ 3 years
                       </h3>
                     </div>
                     <p className="mt-3 mb-1 text-xs font-medium text-indigo-500 uppercase">
                       ------------
                     </p>
                     <p className="mb-2 text-gray-600">
-                      Here I've had the opportunity to work across multiple
-                      platforms like SUSE, AIX, and Windows. I enjoy creating
-                      front-end, middleware, and back-end solutions for in house
-                      use cases across multiple business units like Journeys and
-                      Johnston&Murphy.
+                      Worked across multiple platforms like SUSE, AIX, and
+                      Windows. I enjoy creating front-end, middleware, and
+                      back-end solutions for in house use cases across multiple
+                      business units like Journeys and Johnston&Murphy.
                     </p>
                   </div>
                 </div>
