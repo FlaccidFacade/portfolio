@@ -23,6 +23,10 @@ updates:
           - "next"
           - "eslint-config-next"
           - "next-router-mock"
+      eslint-ecosystem:
+        patterns:
+          - "eslint"
+          - "eslint-config-next"
       testing-packages:
         patterns:
           - "@testing-library/*"
@@ -47,8 +51,6 @@ updates:
           - "@types/canvas-confetti"
       formatting-tools:
         patterns:
-          - "eslint"
-          - "eslint-config-next"
           - "prettier"
 
   - package-ecosystem: "docker"
