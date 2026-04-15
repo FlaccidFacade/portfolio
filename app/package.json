@@ -20,7 +20,7 @@
     "react-dom": "^19"
   },
   "devDependencies": {
-    "@codecov/webpack-plugin": "^1.9.1",
+    "@codecov/webpack-plugin": "^2.0.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
