@@ -38,7 +38,7 @@ jobs:
             echo "sonar-project.properties not found, skipping version injection"
           fi
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@55e44800a8f495208cce6e4e82f5dedb45fcf0ef
+        uses: SonarSource/sonarqube-scan-action@59db25f34e16620e48ab4bb9e4a5dce155cb5432
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
