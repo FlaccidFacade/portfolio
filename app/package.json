@@ -23,7 +23,7 @@
     "@codecov/webpack-plugin": "^2.0.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.0.1",
     "@types/canvas-confetti": "^1.6.4",
     "@types/jest": "^30.0.0",
