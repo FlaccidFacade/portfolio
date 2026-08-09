@@ -42,7 +42,7 @@ const Header: React.FC = () => {
           </div>
         </div>
         <div
-          className={`w-full justify-center flex flex-row space-y-0 space-x-4`}
+          className={`w-full justify-center flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4`}
         >
           <div className="text-gray-200 hover:text-blue-400">
             <ExternalLink
